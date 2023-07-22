@@ -14,7 +14,8 @@
 # PEERS="localhost:5000" 
 
 # MINER_ADDRESS should be unique per node
-# MINER_ADDRESS="ppdpp-dvfgf-fredgdsdf-gdsfgsd-35vr433-ee2eass4d"
+# Use the docker container name here
+MINER_ADDRESS="$(hostname)"
 
 ########################################################################
 ####################### Export environment variables ###################
@@ -29,9 +30,9 @@
 # echo "Exporting PEERS=$PEERS"
 # export PEERS=$PEERS
 
-# echo "Exporting MINER_ADDRESS=$MINER_ADDRESS"
-# export MINER_ADDRESS=$MINER_ADDRESS
+echo "Exporting MINER_ADDRESS=$MINER_ADDRESS"
+export MINER_ADDRESS=$MINER_ADDRESS
 
 # Start application
 echo "Starting application.... "
-python3 src/app.py
+python3 app.py

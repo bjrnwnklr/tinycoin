@@ -27,3 +27,29 @@ Run a single image with a unique miner address:
 ```shell
 docker run --name tinycoin --env MINER_ADDRESS="$(uuidgen)" --rm --detach bjoern/tinycoin
 ```
+
+## docker-compose
+
+Build or rebuild the images if the definition incl the Dockerfile has changed:
+
+```shell
+docker compose build
+```
+
+Run the docker images:
+
+```shell
+docker compose up # -d to run in detached mode, --build to rebuild images
+```
+
+Inspect env variables on a running container:
+
+```shell
+docker compose run tinycoin env
+```
+
+Stop and remove containers:
+
+```shell
+docker compose down
+```
