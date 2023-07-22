@@ -1,23 +1,27 @@
-# Docker image for tinycoin
-# Ubuntu version used 18.04 LTS (Bionic Beaver)
+# Docker image for tinycoin, Bjoern Winkler fork
+# Python 3.11 version
 
-FROM ubuntu:18.04
-LABEL MAINTAINER="https://github.com/prakashpandey"
+FROM python:3.11-slim-bookworm
 
 # Set the working directory to /app
 WORKDIR /home/tinycoin
 
-RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y  software-properties-common && \
-    apt-get install -y  git && \
-    apt install python3-pip -y && \
-    apt-get clean -y
+# Copy over requirements and install them
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt 
 
-RUN git clone https://github.com/prakashpandey/tinycoin /home/tinycoin && \
-    cd /home/tinycoin && \
-    pip3 install -r requirements.txt 
+# Copy over the source files
+COPY src/ .
     
-CMD ./start.sh
 
-EXPOSE 5000
+# Set environment variables
+# MINER_ADDRESS is set from the command line or docker-compose
+ENV HOST="0.0.0.0"
+ENV PORT=5000
+ENV PEERS="localhost:${PORT}"
+
+
+# Start the app
+CMD ["python3", "app.py"]
+
+EXPOSE ${PORT}
