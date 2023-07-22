@@ -1,0 +1,8 @@
+services:
+    node:
+        build: .
+        ports:
+            - "5000"
+        deploy:
+            mode: replicated
+            replicas: 3

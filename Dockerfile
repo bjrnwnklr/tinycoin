@@ -12,16 +12,8 @@ RUN pip3 install -r requirements.txt
 
 # Copy over the source files
 COPY src/ .
+COPY start.sh .
+RUN chmod +x start.sh
     
-
-# Set environment variables
-# MINER_ADDRESS is set from the command line or docker-compose
-ENV HOST="0.0.0.0"
-ENV PORT=5000
-ENV PEERS="localhost:${PORT}"
-
-
 # Start the app
-CMD ["python3", "app.py"]
-
-EXPOSE ${PORT}
+ENTRYPOINT [ "/home/tinycoin/start.sh" ]
