@@ -13,9 +13,6 @@
 # Please specify http as peer connection protocol 
 # PEERS="localhost:5000" 
 
-# MINER_ADDRESS should be unique per node
-# Use the docker container name here
-MINER_ADDRESS="$(hostname)"
 
 ########################################################################
 ####################### Export environment variables ###################
@@ -30,8 +27,10 @@ MINER_ADDRESS="$(hostname)"
 # echo "Exporting PEERS=$PEERS"
 # export PEERS=$PEERS
 
+# MINER_ADDRESS should be unique per node
+# Use the docker container name here
 echo "Exporting MINER_ADDRESS=$MINER_ADDRESS"
-export MINER_ADDRESS=$MINER_ADDRESS
+export MINER_ADDRESS="$(hostname)"
 
 # Start application
 echo "Starting application.... "
