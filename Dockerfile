@@ -15,12 +15,13 @@ COPY src/ .
     
 
 # Set environment variables
+# MINER_ADDRESS is set from the command line or docker-compose
 ENV HOST="0.0.0.0"
 ENV PORT=5000
 ENV PEERS="localhost:${PORT}"
-ENV MINER_ADDRESS=$(uuidgen)
+
 
 # Start the app
-CMD ["python3", "src/app.py"]
+CMD ["python3", "app.py"]
 
 EXPOSE ${PORT}

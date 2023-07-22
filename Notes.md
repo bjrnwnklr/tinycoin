@@ -13,3 +13,17 @@ docker run --env SERVICE_TAG=$(uuidgen) yourimage
 ```
 
 -   Use docker-compose [Build a docker application with python](https://www.programonaut.com/build-a-docker-application-with-python-example/)
+
+## Run using Dockerfile
+
+Build the docker image:
+
+```shell
+docker build -t bjoern/tinycoin .
+```
+
+Run a single image with a unique miner address:
+
+```shell
+docker run --name tinycoin --env MINER_ADDRESS="$(uuidgen)" --rm --detach bjoern/tinycoin
+```
