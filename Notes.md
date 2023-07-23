@@ -19,13 +19,27 @@ docker run --env SERVICE_TAG=$(uuidgen) yourimage
 Build the docker image:
 
 ```shell
-docker build -t bjoern/tinycoin .
+docker build -t tinycoin .
 ```
 
 Run a single image with a unique miner address:
 
 ```shell
-docker run --name tinycoin --env MINER_ADDRESS="$(uuidgen)" --rm --detach bjoern/tinycoin
+docker run --name tinycoin --env MINER_ADDRESS="$(uuidgen)" --rm --detach tinycoin
+```
+
+**IMPORTANT**
+
+-   The `HOST` variable needs to be set to `0.0.0.0` in Flask (via an env variable or by setting it in the `start.sh` script).
+-   This enables Flask listening on all network interfaces (127.0.0.1 and the dynamically generated docker IP address, e.g. 172.17.0.2).
+-   If not set to `0.0.0.0`, Flask will not work correctly when run via Docker.
+
+## Manually stop docker containers started with docker run
+
+Use a combination of `docker ps` with `--filter` and `--format` options and then `xargs` to run `docker stop`.
+
+```shell
+docker ps --filter "ancestor=tinycoin" --format "{{.ID}}" | xargs -n1 docker stop
 ```
 
 ## docker-compose

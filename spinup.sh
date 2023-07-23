@@ -72,5 +72,6 @@ for (( i=1; i<=${CONTAINERS}; i++ ))
 do
     echo "Spinning up tinycoin node ${i}"
     PORT=$((${PORT_START} + ${i}))
-    /usr/bin/docker run --env PORT=${PORT} --publish ${PORT}:5000 --rm --detach tinycoin
+    # /usr/bin/docker run --env PORT=${PORT} --publish ${PORT}:5000 --rm --detach tinycoin
+    /usr/bin/docker run --publish ${PORT}:5000 --rm --detach tinycoin
 done
