@@ -128,7 +128,7 @@ def transaction():
     # print transaction logs
     print("New Transaction")
     print(f"From: { transaction_received['from'] }")
-    print(f"From: { transaction_received['to'] }")
+    print(f"To: { transaction_received['to'] }")
     print(f"Amount: { transaction_received['amount'] }\n")
 
     if transaction.is_valid():
