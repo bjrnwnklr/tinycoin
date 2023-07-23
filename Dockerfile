@@ -7,7 +7,7 @@ FROM python:3.11-slim-bookworm
 WORKDIR /home/tinycoin
 
 # Copy over requirements and install them
-COPY requirements.txt requirements.txt
+COPY docker-requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt 
 
 # Copy over the source files

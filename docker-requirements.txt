@@ -1,0 +1,4 @@
+# This application requires these dependencies
+
+requests
+flask
