@@ -12,7 +12,6 @@ RUN pip3 install -r requirements.txt
 
 # Copy over the source files
 COPY src/ .
-COPY start.sh .
 RUN chmod +x start.sh
     
 # Start the app

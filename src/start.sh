@@ -4,9 +4,15 @@
 ####################### Define environment variables ###################
 ########################################################################
 
+# Determine and set the hostname/ IP address of the container
+# - it will run on a virtual network created by Docker
+# hostname -I returns the IP address. 
+# Other Linux commands like `ip addr` or `ifconfig` are not installed
+# by default on the docker image.
+# HOST="$(hostname -I)"
 # Please don't use http in host as it is already included.
 # 0.0.0.0 means serve all network interfaces
-# HOST="0.0.0.0"
+HOST="0.0.0.0"
 
 # PORT=5000
 
@@ -21,8 +27,8 @@ MINER_ADDRESS="$(hostname)"
 ####################### Export environment variables ###################
 ########################################################################
 
-# echo "Exporting HOST=$HOST"
-# export HOST=$HOST
+echo "Exporting HOST=$HOST"
+export HOST=$HOST
 
 # echo "Exporting PORT=$PORT"
 # export PORT=$PORT
