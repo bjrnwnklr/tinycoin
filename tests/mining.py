@@ -3,6 +3,7 @@ import logging
 import json
 import subprocess
 from dataclasses import dataclass, field
+import random
 
 logger = logging.getLogger(__name__)
 
@@ -109,6 +110,20 @@ def main():
         data = json.dumps(payload)
         r = api_request("POST", url, headers, data)
         logging.debug(f"Appended peers to {node}: {r.text}")
+
+    # retrieve peers of a random node
+    node = random.choice(list(nodes.keys()))
+    logging.debug(f"Retrieving peers for node {node}")
+    url = nodes[node].url + "/peers"
+    r = api_request("GET", url)
+    logging.debug(f"Peers of node {node}: {r.text}")
+
+    # retrieve all peers of peers of a random node
+    node = random.choice(list(nodes.keys()))
+    logging.debug(f"Retrieving peers of peers for node {node}")
+    url = nodes[node].url + "/connect_to_peers_of_peers"
+    r = api_request("GET", url)
+    logging.debug(f"Peers of peers of node {node}: {r.text}")
 
     # create some transactions etc etc etc
 
