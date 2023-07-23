@@ -31,6 +31,18 @@ Change the `Transactions` class in `transaction.py` to:
 -   add additional fields, e.g. a description of the transaction (e.g. a JSON object)
 -   Rules to verify the transaction in the `is_valid` method (e.g. if the sender has the correct balance to transfer an amount).
 
+# Mining
+
+The `/mine` API does the following:
+
+-   get the last block of the node's blockchain
+-   extract the last proof of work from that block (the proof of work is similar to a nonce)
+-   calculate a new proof of work using the last proof of work - **this could be improved by a better proof of work algorithm**
+-   reward the mining node by transferring 1 coin to the address of the miner (sender: 'network')
+-   create a new block with the current transactions of the node and the new proof (both combined into a `data` object), a new index and timestamp and the hash of the previous block
+-   Add the new block to the node's blockchain
+-   empty the current list of transactions
+
 # Proof of work
 
 This does a very simple proof of work and is called by the `/mine` API:
@@ -40,3 +52,11 @@ This does a very simple proof of work and is called by the `/mine` API:
 -   increments until a result has been found
 
 This could be changed to include a nonce / hash implementation.
+
+# Observations
+
+-   the `/consensus` route is never called here - needs to be called whenever a new block was mined? We can probably call consensus on every peer of the peers once a block has been mined
+-   mining can be done on one individual node, but should really be done on multiple nodes, who then form a consensus about the blockchain
+-   `/consensus` is a very simple implementation, it just takes the longest chain from the node's peers and assigns it to the node's blockchain
+-   transactions are never processed - nothing is ever done with them.
+    -   how can we find the balance of a miner or person? Assume by calling the `/blocks` route from a node after finding consensus, and then adding up all transactions in there?

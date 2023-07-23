@@ -125,7 +125,23 @@ def main():
     r = api_request("GET", url)
     logging.debug(f"Peers of peers of node {node}: {r.text}")
 
-    # create some transactions etc etc etc
+    # create some transactions at a random node
+    node = random.choice(list(nodes.keys()))
+    url = nodes[node].url + "/transaction"
+    with open("transactions.csv", "r") as f:
+        for line in f.readlines():
+            sender, recipient, amount = line.strip().split(",")
+            headers = {"Content-Type": "application/json"}
+            payload = {"from": sender, "to": recipient, "amount": int(amount)}
+            data = json.dumps(payload)
+            r = api_request("POST", url, headers, data)
+            logging.debug(f"Sent transactions to {node}: {r.text}")
+
+    # mine the transactions by putting them into a block
+    logging.debug(f"Mining on node {node}")
+    url = nodes[node].url + "/mine"
+    r = api_request("GET", url)
+    logging.debug(f"Mining completed for {node}: {json.dumps(r.json())}")
 
 
 if __name__ == "__main__":
