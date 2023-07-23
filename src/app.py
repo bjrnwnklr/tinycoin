@@ -107,7 +107,7 @@ def connect_to_peers_of_peers():
         except Exception as e:
             print(f"__ERROR__ while trying to find peers of a peer. { str(e) }")
     # remove the self node
-    this_node = os.getenv("HOST", "127.0.0.1") + ":" + os.getenv("PORT", 5000)
+    this_node = os.getenv("HOST", "127.0.0.1") + ":" + str(os.getenv("PORT", 5000))
     while this_node in peers:
         peers.remove(this_node)
     # update the current peers list
@@ -128,7 +128,7 @@ def transaction():
     # print transaction logs
     print("New Transaction")
     print(f"From: { transaction_received['from'] }")
-    print(f"From: { transaction_received['to'] }")
+    print(f"To: { transaction_received['to'] }")
     print(f"Amount: { transaction_received['amount'] }\n")
 
     if transaction.is_valid():

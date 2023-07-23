@@ -1,4 +1,4 @@
-# My tinycoin implementation notes
+# Technical notes for running the docker containers
 
 # Docker setup
 

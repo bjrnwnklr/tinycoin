@@ -1,4 +1,4 @@
-# This application requires these dependencies
-
+black
+flake8
 requests
 flask
